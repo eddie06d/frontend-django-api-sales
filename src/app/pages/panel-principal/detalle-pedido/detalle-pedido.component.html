@@ -1,0 +1,40 @@
+<h2 style="text-align: center;">Detalle del Pedido {{ order.number }}</h2>
+<div style="display: flex; width: 100%; justify-content: space-between;">
+  <div>
+    <p class="subtitle">Datos Generales</p>
+    <div class="container">
+      <label>Fecha: </label>
+      <span>{{ order.date | date: 'dd/MM/yyyy' }}</span>
+      <label>Dirección de Entrega: </label>
+      <span>{{ order.delivery_address }}</span>
+      <label>Fecha de Entrega: </label>
+      <span>{{ order.delivery_date | date: 'dd/MM/yyyy' }}</span>
+      <label>Subtotal: </label>
+      <span>{{ 'S/. '+order.subtotal }}</span>
+      <label>IGV: </label>
+      <span>{{ 'S/. '+order.igv }}</span>
+      <label>Total: </label>
+      <span>{{ 'S/. '+order.total }}</span>
+    </div>
+  </div>
+  <div>
+    <p class="subtitle">Datos del Cliente</p>
+    <div class="container">
+      <label>RUC: </label>
+      <span>{{ order.client.ruc }}</span>
+      <label>Razón Social: </label>
+      <span>{{ order.client.business_name }}</span>
+      <label>Distrito: </label>
+      <span>{{ order.client.distrcit }}</span>
+      <label>Tipo de Cliente: </label>
+      <span>{{ order.client.type_client }}</span>
+    </div>
+  </div>
+</div>
+<p class="subtitle" style="margin-top: 20px;">Lista de los Productos</p>
+<ul style="width: 70%;">
+  <li *ngFor="let producto of order.list_products">
+    <span>{{ getNameProductByCode(producto.code) }}</span>
+    <span>{{ producto.quantity }}</span>
+  </li>
+</ul>

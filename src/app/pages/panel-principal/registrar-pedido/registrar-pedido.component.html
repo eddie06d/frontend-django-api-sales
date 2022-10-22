@@ -1,0 +1,94 @@
+<h2>Registrar Pedido</h2>
+<div class="filters">
+  <mat-form-field appearance="fill">
+    <mat-label>Filtrar por</mat-label>
+    <mat-select #selectTypeFilter (selectionChange)="onChangeTypeFilter($event)">
+      <mat-option value="categoria">Categoría</mat-option>
+      <mat-option value="unidad_medida">Unidad de Medida</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ text_filter }}</mat-label>
+    <mat-select (selectionChange)="onChangeValueFilter($event, selectTypeFilter.value)">
+      <mat-option value="">Todas</mat-option>
+      <mat-option [value]="value" *ngFor="let value of values">{{ value }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Listado de Productos</mat-label>
+    <mat-select (selectionChange)="onChangeSelectProduct($event)">
+      <mat-option [value]="producto" *ngFor="let producto of productos_filtrados">{{ producto.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="productos_seleccionados.length == 0; else productsSelect" class="mb-4 w-full bg-red-200 font-medium rounded-md text-center py-4">No hay productos seleccionados.</div>
+  <ng-template #productsSelect>
+    <table class="mt-4 w-3/4">
+      <thead class="border-b-2">
+        <th class="py-3">Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </thead>
+      <tbody class="border-b-2">
+        <tr *ngFor="let producto of productos_seleccionados">
+          <td class="text-center">{{ producto.name }}</td>
+          <td class="flex items-center gap-4 justify-center">
+            <button type="button" (click)="addQuantity(producto.code)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <p class="text-xl">{{ producto.cantidad }}</p>
+            <button type="button" (click)="removeQuantity(producto.code)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+          <td class="text-center">{{ 'S/. ' + (producto.cantidad * producto.sale_price).toFixed(2) }}</td>
+          <td class="flex justify-center">
+            <button type="button" mat-icon-button (click)="removeProduct(producto.code)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <p class="text-lg py-3">TOTAL: S/. {{ getTotalPrice().toFixed(2) }}</p>
+        </tr>
+      </tfoot>
+    </table>
+  </ng-template>
+  <div class="flex gap-6">
+    <mat-form-field appearance="fill">
+      <mat-label>Dirección de entrega</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="delivery_address"
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de entrega</mat-label>
+      <input
+        type="date"
+        matInput
+        formControlName="delivery_date"
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Cliente</mat-label>
+      <mat-select formControlName="client_id">
+        <mat-option [value]="cliente.id" *ngFor="let cliente of clientes">{{ cliente.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    class="w-full py-2"
+    type="submit"
+  >
+    <mat-icon>send</mat-icon>
+    Enviar
+  </button>
+</form>

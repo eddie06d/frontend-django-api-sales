@@ -1,0 +1,71 @@
+.container {
+  min-height: 100vh;
+}
+
+img {
+  height: 150px;
+}
+
+.sidenav {
+  position: fixed;
+}
+
+.sidenav-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidenav-content p {
+  padding: 0 1rem;
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.section-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .5rem 0;
+  gap: .5rem;
+}
+
+.section-logo p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.navbar {
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem;
+  position: fixed;
+  box-shadow: 4px 4px 10px rgba(0,0,0,.1);
+  width: calc(100% - 290px);
+  transition: all .5s ease-in;
+  z-index: 10;
+}
+
+.w-full {
+  max-width: 100%;
+}
+
+.navbar .icon-navbar {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.navbar .icon-navbar:hover {
+  background-color: rgb(233, 240, 240);
+}
+
+main {
+  margin-top: 85px;
+  padding: 25px;
+}

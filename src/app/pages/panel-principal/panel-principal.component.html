@@ -1,0 +1,41 @@
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" opened>
+    <div class="sidenav-content">
+      <div class="top-section">
+        <div class="section-logo">
+          <img src="assets/admin-icon.jpg" alt="icon-admin">
+          <p>Sistema de Gestión de Ventas</p>
+        </div>
+        <mat-selection-list #listItems [multiple]="false">
+          <mat-list-option [routerLink]="item.link" *ngFor="let item of items" [value]="item.name">
+            <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+            <div mat-line>{{ item.name }}</div>
+          </mat-list-option>
+          <mat-list-option>
+            <mat-icon mat-list-icon>logout</mat-icon>
+            <div mat-line>Cerrar Sesión</div>
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+      <p>Copyright &copy; 2022</p>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <nav class="navbar" [ngClass]="{ 'w-full': !drawer.opened }">
+      <div class="icon-navbar" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </div>
+      <h2>Sistema Único de Gestión de Ventas Online</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput type="text">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </nav>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-drawer-content>
+
+</mat-drawer-container>
